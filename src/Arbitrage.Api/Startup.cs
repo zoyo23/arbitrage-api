@@ -32,7 +32,13 @@ namespace Arbitrage.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHangfireServer();
-            app.UseHangfireDashboard();
+
+            var dashboardOptions = new DashboardOptions
+            {
+                IgnoreAntiforgeryToken = true
+            };
+
+            app.UseHangfireDashboard(options: dashboardOptions);
 
             if (env.IsDevelopment())
             {
