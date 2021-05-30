@@ -35,7 +35,8 @@ namespace Arbitrage.Api
 
             var dashboardOptions = new DashboardOptions
             {
-                IgnoreAntiforgeryToken = true
+                //IgnoreAntiforgeryToken = true,
+                Authorization = new[] { new MyAuthorizationFilter() }
             };
 
             app.UseHangfireDashboard(options: dashboardOptions);
