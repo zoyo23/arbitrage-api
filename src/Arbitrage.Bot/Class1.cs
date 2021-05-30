@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Arbitrage.Bot
+﻿namespace Arbitrage.Bot
 {
     public class Class1
     {

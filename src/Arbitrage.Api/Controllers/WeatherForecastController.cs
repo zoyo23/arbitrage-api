@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Arbitrage.Api.Controllers
 {
@@ -23,9 +23,16 @@ namespace Arbitrage.Api.Controllers
             _logger = logger;
         }
 
+        public void RunBackground()
+        {
+            Console.WriteLine($"$ Teste de Background Task...");
+        }
+
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            RecurringJob.AddOrUpdate("Teste", () => RunBackground(), "*/5 * * * * *");
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
