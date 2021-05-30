@@ -1,6 +1,7 @@
 ﻿using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading;
 
 namespace Arbitrage.Api.Controllers
 {
@@ -11,15 +12,24 @@ namespace Arbitrage.Api.Controllers
         [HttpGet]
         public IActionResult GetStatus()
         {
-
-            RecurringJob.AddOrUpdate("Teste", () => RunBackground(), "*/5 * * * * *");
+            RecurringJob.RemoveIfExists("Biscoint_Bot");
+            RecurringJob.AddOrUpdate("Biscoint_Bot", () => RunBackground(), "* * * * * ");
 
             return Ok("Funfando! :P");
         }
 
+        [DisableConcurrentExecution(timeoutInSeconds: 10 * 60)]
         public void RunBackground()
         {
-            Console.WriteLine($"$ Teste de Background Task...");
+            var contador = 0;
+
+            while (contador <= 80)
+            {
+                Console.WriteLine($"{DateTime.Now.ToLongTimeString()} | {contador} -> Teste de Background Task. | Thread {Thread.CurrentThread.Name}");
+                contador++;
+                Thread.Sleep(TimeSpan.FromSeconds(5));
+            }
+
         }
     }
 }

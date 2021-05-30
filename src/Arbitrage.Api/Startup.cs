@@ -35,7 +35,6 @@ namespace Arbitrage.Api
 
             var dashboardOptions = new DashboardOptions
             {
-                //IgnoreAntiforgeryToken = true,
                 Authorization = new[] { new MyAuthorizationFilter() }
             };
 
