@@ -18,15 +18,14 @@ namespace Arbitrage.Api.Controllers
             return Ok("Funfando! :P");
         }
 
-        [DisableConcurrentExecution(timeoutInSeconds: 420)]
+        [DisableConcurrentExecution(timeoutInSeconds: int.MaxValue)]
         public void RunBackground()
         {
             var contador = 0;
 
-            while (contador <= 80)
+            while (contador <= 100)
             {
-                //Console.WriteLine($"{DateTime.Now.ToLongTimeString()} | {contador} -> Teste de Background Task. | Thread {Thread.CurrentThread.Name}");
-                Console.WriteLine("{0,-20} | {1, 4} | {2, 15} | {3, 10}", DateTime.Now, contador, "Execução Tarefa em segundo plano", Thread.CurrentThread.Name);
+                Console.WriteLine("{0,-20} | {1, 4} | {2, 15} | {3, 10} | {4, 20}", DateTime.Now, contador, "Execução Tarefa em segundo plano", Thread.CurrentThread.Name, Environment.MachineName);
                 contador++;
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
